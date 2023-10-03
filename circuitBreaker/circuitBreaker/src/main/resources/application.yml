@@ -1,0 +1,33 @@
+server:
+  port: 7777
+spring:
+  application:
+     name: circuit-breaker  
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  
+    
+resilience4j.circuitbreaker:
+    instances:
+        clientes:
+            registerHealthIndicator: true
+            slidingWindowSize: 10
+            permittedNumberOfCallsInHalfOpenState: 3
+            slidingWindowType: TIME_BASED
+            minimumNumberOfCalls: 4
+            waitDurationInOpenState: 5s
+            failureRateThreshold: 50
+            eventConsumerBufferSize: 10
+        equipos:
+            registerHealthIndicator: true
+            slidingWindowSize: 10
+            permittedNumberOfCallsInHalfOpenState: 3
+            slidingWindowType: TIME_BASED
+            minimumNumberOfCalls: 4
+            waitDurationInOpenState: 5s
+            failureRateThreshold: 50
+            eventConsumerBufferSize: 10     
